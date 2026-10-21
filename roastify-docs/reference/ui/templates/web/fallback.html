@@ -1,0 +1,58 @@
+{% extends "web/base.html" %}
+
+{% block title %}Paste your tracks | Roastify{% endblock %}
+
+{# Context: error_message (optional string shown in the alert when Spotify could not be read). #}
+
+{% block body %}
+<main class="page is-compact">
+  <div class="column is-narrow">
+
+    <div class="topbar">
+      <a class="wordmark" href="{% url 'web:landing' %}">Roastify</a>
+      <a class="text-link" href="{% url 'web:landing' %}">Back to link input</a>
+    </div>
+
+    <div class="alert" role="alert">{{ error_message|default:"We could not read that playlist. Spotify may have blocked access to it. No problem: paste your tracks below and we will roast those instead." }}</div>
+
+    <h1 class="fallback-title">Paste your tracks.<br>We will take it from here.</h1>
+
+    <div class="tabs" role="group" aria-label="Input method">
+      <a class="tab" href="{% url 'web:landing' %}">Spotify link</a>
+      <span class="tab is-active" aria-current="page">Paste tracks</span>
+    </div>
+
+    <form id="manual-form" class="roast-form is-stretch" novalidate enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="intensity" value="savage">
+
+      <div class="field">
+        <label class="field-label" for="tracks">Your tracks, one per line</label>
+        <textarea class="textarea" id="tracks" name="tracks_text" rows="9" placeholder="Song name - Artist name"></textarea>
+        <div class="upload-row">
+          <label class="btn-secondary" for="csv-file">Upload a CSV</label>
+          <input class="sr-only" id="csv-file" name="csv_file" type="file" accept=".csv,text/csv">
+          <span class="fine-print">CSV columns: title, artist. Optional: album, release_date.</span>
+        </div>
+      </div>
+
+      <div class="tone-group is-left" role="group" aria-label="Roast level" data-tone-group>
+        <button class="tone-pill" type="button" data-tone="mild" aria-pressed="false">Mild</button>
+        <button class="tone-pill is-selected" type="button" data-tone="savage" aria-pressed="true">Savage</button>
+        <button class="tone-pill" type="button" data-tone="nuclear" aria-pressed="false">Nuclear</button>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-primary" type="submit">Find out</button>
+        <p id="form-status" class="form-status" role="status" aria-live="polite">Counting how many times you hit repeat...</p>
+      </div>
+    </form>
+
+  </div>
+
+  <footer class="inner-footer is-narrow">
+    <span>A hobby project. Not affiliated with Spotify.</span>
+    <span>Pasted tracks are never stored.</span>
+  </footer>
+</main>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "web/base.html" %}
+
+{% block title %}Your roast | Roastify{% endblock %}
+
+{# Context: report (dict, see demo_report.json for the exact shape). #}
+
+{% block body %}
+<main class="page is-compact">
+  <div class="column">
+
+    <div class="topbar">
+      <a class="wordmark" href="{% url 'web:landing' %}">Roastify</a>
+      <a class="text-link" href="{% url 'web:landing' %}">Roast another playlist</a>
+    </div>
+
+    <header class="result-head">
+      <span class="eyebrow">Roast level: {{ report.tone_label }}</span>
+      <h1 class="result-title">{{ report.headline }}</h1>
+      <p class="personality">{{ report.personality }}</p>
+      <p class="meta-note">{{ report.meta_line }}</p>
+    </header>
+
+    <div class="roast-card">
+      <p class="roast-text">{{ report.roast }}</p>
+    </div>
+
+    <section>
+      <div class="scores">
+        {% for score in report.scores %}
+        <div class="score-card">
+          <span class="score-label">{{ score.label }}</span>
+          <span class="score-value">{{ score.value }}</span>
+          <div class="meter" role="progressbar" aria-label="{{ score.label }}" aria-valuenow="{{ score.value }}" aria-valuemin="0" aria-valuemax="100">
+            <div class="meter-fill" style="width: {{ score.value }}%"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <p class="fine-print">Scores are for entertainment only. Not science.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">What the numbers say</h2>
+      <ul class="observations">
+        {% for line in report.observations %}
+        <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="verdict">
+      <div class="verdict-disc" aria-hidden="true"></div>
+      <span class="verdict-label">Final verdict</span>
+      <p class="verdict-text">{{ report.final_verdict }}</p>
+    </section>
+
+    <div class="cta-row">
+      <a class="btn-primary" href="{% url 'web:landing' %}">Roast another playlist</a>
+      <span class="fine-print">Reports are not saved. Refresh and it is gone.</span>
+    </div>
+
+  </div>
+
+  <footer class="inner-footer">
+    <span>A hobby project. Not affiliated with Spotify.</span>
+    <span>Jokes are about playlists, never about people.</span>
+  </footer>
+</main>
+{% endblock %}

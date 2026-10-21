@@ -1,0 +1,65 @@
+{% extends "web/base.html" %}
+
+{% block title %}Roastify{% endblock %}
+
+{% block body %}
+<main class="page">
+  <div class="beam" aria-hidden="true"></div>
+
+  <section class="hero">
+    <h1 class="headline">Your music taste.<br>Your public execution.</h1>
+    <p class="lede">Paste a playlist. Our AI crunches the real numbers, then judges every choice you made.</p>
+    <span class="eyebrow">3 roast levels. Zero mercy.</span>
+
+    <form id="roast-form" class="roast-form" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="intensity" value="savage">
+
+      <div class="url-row">
+        <label class="sr-only" for="playlist-url">Spotify playlist link</label>
+        <input class="url-input" id="playlist-url" name="url" type="url" placeholder="https://open.spotify.com/playlist/...">
+        <button class="btn-primary" type="submit">Find out</button>
+      </div>
+
+      <div class="tone-group" role="group" aria-label="Roast level" data-tone-group>
+        <button class="tone-pill" type="button" data-tone="mild" aria-pressed="false">Mild</button>
+        <button class="tone-pill is-selected" type="button" data-tone="savage" aria-pressed="true">Savage</button>
+        <button class="tone-pill" type="button" data-tone="nuclear" aria-pressed="false">Nuclear</button>
+      </div>
+
+      <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+
+      <a class="text-link" href="{% url 'web:fallback' %}">Spotify not working? Paste your tracks instead.</a>
+    </form>
+  </section>
+
+  <section class="shelf-wrap" aria-hidden="true">
+    <div class="sleeves">
+      <div class="sleeve sleeve-blue">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-title">Repeat<br>Offender</div>
+      </div>
+      <div class="sleeve sleeve-charcoal">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-title">Skip Button<br>Graveyard</div>
+      </div>
+      <div class="sleeve sleeve-gray">
+        <div class="sleeve-title">Gym Bro<br>Anthems</div>
+      </div>
+      <div class="sleeve sleeve-teal">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-title">3 AM<br>Regrets</div>
+      </div>
+      <div class="sleeve sleeve-pink">
+        <div class="sleeve-title">Main<br>Character<br>Era</div>
+      </div>
+    </div>
+    <div class="shelf-board"></div>
+  </section>
+
+  <footer class="site-footer">
+    <span>A hobby project. Not affiliated with Spotify.</span>
+    <span>Playlists are never stored. <a href="#">Privacy note</a>.</span>
+  </footer>
+</main>
+{% endblock %}

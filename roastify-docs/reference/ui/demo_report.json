@@ -1,0 +1,18 @@
+{
+  "headline": "Your shuffle button needs a lawyer",
+  "personality": "The Dedicated Fan Club President",
+  "tone_label": "Savage",
+  "meta_line": "Example data: 48 tracks, 13 unique artists, 15 tracks from the top artist (31.25%).",
+  "scores": [
+    { "label": "Artist obsession", "value": 82 },
+    { "label": "Main character energy", "value": 71 },
+    { "label": "Emotional damage", "value": 64 }
+  ],
+  "observations": [
+    "15 of 48 tracks come from one artist (31.25%).",
+    "Only 13 unique artists show up across the whole playlist.",
+    "Most roastable pattern: one artist, many, many tracks."
+  ],
+  "roast": "Fifteen tracks from the same artist? This is less a playlist and more an unpaid internship in the fan club. Your shuffle button is fighting for its life.",
+  "final_verdict": "Your playlist has commitment issues with everyone except one artist."
+}
